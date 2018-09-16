@@ -1,0 +1,17 @@
+*.html
+*/.ipynb_checkpoints/*
+*.pyc
+*.png
+*.eps
+
+.ipynb_checkpoints
+.gitattributes
+Scratch/
+
+.Rproj.user
+.Rapp.history
+.RData
+.Rhistory
+*.Rproj
+
+.DS_Store
