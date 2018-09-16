@@ -4,8 +4,8 @@
 *.png
 *.eps
 
-.ipynb_checkpoints
 .gitattributes
+.ipynb_checkpoints
 Scratch/
 
 .Rproj.user
