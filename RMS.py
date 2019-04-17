@@ -1,13 +1,13 @@
 # Functions to compute rms,  weighted RMS, and their uncertainty.
+# This is my main 'rms.py' function.
 
 #--------------------------------------------------------60
 code_created_by = 'Arturo_Avelino'
 # On date: 2018.12.10 (yyyy.mm.dd)
-code_name = ''
-version_code = '0.1.2'
-last_update = '2019.01.28'
+code_name = 'rms.py'
+version_code = '0.1.3'
+last_update = '2019.04.17'
 #--------------------------------------------------------60
-
 import numpy as np
 #-------------------------------------------------------
 
@@ -46,19 +46,21 @@ def err_rms(x_np, sigma_np):
 
 #-------------------------------------------------------
 
-def err_rms_boot(x_np, loopsize):
+def err_rms_boot(x_np, loopsize=1000, seed=12345):
     """
     Function to compute the uncertainty on rms using bootstrap
     :param x_np : numpy array of data to determine their rms.
     :type x_np : ndarray.
     :param loopsize : loop size for bootstrap.
     :type sigma : integer.
+    :param seed : random seed for reproducibility.
+    :type seed : float.
     :random.seed = 12345
     """
     ndata = len(x_np) # size of data array
     rms_np = np.zeros(loopsize) # initialize
     # old. random_np = np.zeros(loopsize) # initialize
-    np.random.seed(12345)
+    np.random.seed(seed)
 
     #-----------------------------
     for i1 in range(loopsize):
@@ -79,7 +81,7 @@ def err_rms_boot(x_np, loopsize):
 
     return stdev_boot
 
-#-------------------------------------------------------
+#########################################################60
 
 def wrms(x_np, w_np):
     """
@@ -126,7 +128,7 @@ def err_wrms(x_np, w_np, sigma_np):
 
 #-------------------------------------------------------
 
-def err_wrms_boot(x_np, w_np, loopsize):
+def err_wrms_boot(x_np, w_np, loopsize=1000, seed=12345):
     """
     Function to compute the uncertainty on wrms using bootstrap
     :param x_np : numpy array of data to determine their wrms.
@@ -134,13 +136,15 @@ def err_wrms_boot(x_np, w_np, loopsize):
     :param w : numpy array of the weights.
     :param loopsize : loop size for bootstrap.
     :type sigma : integer.
+    :param seed : random seed for reproducibility.
+    :type seed : float.
     :random.seed = 12345
     """
     ndata = len(x_np) # size of data array
     x_random_np = np.zeros(ndata) # initialize
     w_random_np = np.zeros(ndata) # initialize
     wrms_np = np.zeros(loopsize) # initialize
-    np.random.seed(12345)
+    np.random.seed(seed)
 
     #--------------------
     for i1 in range(loopsize):
@@ -170,14 +174,3 @@ def err_wrms_boot(x_np, w_np, loopsize):
     return stdev_boot
 
 #-------------------------------------------------------
-
-#       Test
-
-# test1 = np.array([ 2.,  2.,  2.,  2.,  2.])
-# test2 = np.ones(5)
-
-# print rms(test1)
-
-# print err_rms(test1, test2)
-# 0.158113883008
-
