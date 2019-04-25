@@ -1,17 +1,34 @@
+#   Files
+
+tests_plots.ipynb
+Plot_data_template.ipynb
+
 *.html
-*/.ipynb_checkpoints/*
 *.pyc
 *.png
 *.eps
 
-.gitattributes
-.ipynb_checkpoints
-Scratch/
-
+*.Rproj
 .Rproj.user
 .Rapp.history
 .RData
 .Rhistory
-*.Rproj
 
+.gitattributes
+.ipynb_checkpoints
 .DS_Store
+
+#---------------------------
+
+#   Folders
+
+Plots/PrevVersions/*
+SNeIa/PrevVersions/*
+
+Scratch/
+
+*/.ipynb_checkpoints/*
+
+#---------------------------
+
+
