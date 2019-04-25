@@ -4,6 +4,8 @@
 
 # Function to plot the template + data for the low-z NIR paper.
 
+# This is my main "plottempdata.py" file.
+
 #--------------------------------------------------------60
 code_created_by = 'Arturo_Avelino'
 # On date: 2019.04.23 (yyyy.mm.dd)

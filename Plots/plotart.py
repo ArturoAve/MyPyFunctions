@@ -3,7 +3,7 @@
 # Anaconda python 2.7
 
 # Collection of functions to create frequent plots I usually need.
-# This is a copy of my "plotart.py" function.
+# This is my main "plotart.py" file.
 
 #--------------------------------------------------------60
 code_created_by = 'Arturo_Avelino'
