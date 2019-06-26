@@ -3,14 +3,14 @@
 # Anaconda python 2.7
 
 # Collection of functions to create frequent plots I usually need.
-# This is my main "plotart.py" file.
+# This is my MAIN "plotart.py" file.
 
 #--------------------------------------------------------60
 code_created_by = 'Arturo_Avelino'
 # On date: 2019.01.10 (yyyy.mm.dd)
 code_name = 'plotart.py'
-version_code = '0.1.4'
-last_update = '2019.04.23'
+code_version = '0.1.4'
+code_last_update = '2019.04.23'
 
 #--------------------------------------------------------60
 
@@ -33,11 +33,16 @@ def plot_errorbars(xx, yy, e_yy,
     """
     Function to create a generic errorbar plot.
 
-    NOTE: The created plot will be open [i.e., plt.figure()] or closed [i.e.,
-    plt.close()] at the of running this function. This helps to use this
-    function inside of a more complex creation of plots.
-    So to create new plot with these functions, the first and last line should
+    NOTE: The created plot you need to open [i.e., plt.figure()] and close [i.e.,
+    plt.close()] this function. By not including the commands plt.figure() and
+    plt.close() helps to use this function inside of a more complex creation of
+    plots. So to create new plot with these functions, the first and last line should
     be plt.figure() and plt.close() respectively.
+    For instance:
+
+        plt.figure()
+        plotart.plot_errorbars(xx, yy, e_yy)
+        plt.close()
 
     Mandatory arguments:
         xx: the x data.
@@ -61,6 +66,77 @@ def plot_errorbars(xx, yy, e_yy,
 
     # plt.figure()
     plt.errorbar(xx, yy, yerr = e_yy,
+                fmt=fmt, color=color, ms=ms, alpha=alpha,
+                elinewidth=elinewidth, capsize=capsize)
+
+    plt.grid(True, ls='--', alpha=0.3)
+
+    # x,y axes limits if defined by user:
+    if len(xlim) > 0: plt.xlim(xlim[0], xlim[1])
+    if len(ylim) > 0: plt.ylim(ylim[0], ylim[1])
+
+    plt.xlabel(xlabel, fontsize=fs)
+    plt.ylabel(ylabel, fontsize=fs)
+    plt.title(title, fontsize=(fs+2))
+
+    # plt.legend(loc='upper left')
+
+    if savefig:
+        plt.savefig(dir_save_output+namesavefig, dpi=resolution_dpi)
+
+    # plt.close()
+    # return plt.close()
+    return '# Error bar plot created.'
+
+#-----------------------------------------------------------------------------80
+
+#       ERROR BAR PLOT: errors in both axes
+
+def plot_errorbarsxy(xx, yy, e_yy, e_xx,
+                xlim=[], ylim=[],
+                color='red', fmt='.', ms=6, elinewidth=1, capsize=2, alpha=0.6,
+                xlabel='x axis', ylabel='y axis',
+                title = 'Data with error bars', fs=12,
+                savefig = False,
+                namesavefig = 'plot_data_errorbars_.png',
+                resolution_dpi = 100,
+                dir_save_output = ''):
+    """
+    Function to create a generic errorbar plot.
+
+    NOTE: The created plot you need to open [i.e., plt.figure()] and close [i.e.,
+    plt.close()] this function. By not including the commands plt.figure() and
+    plt.close() helps to use this function inside of a more complex creation of
+    plots. So to create new plot with these functions, the first and last line should
+    be plt.figure() and plt.close() respectively.
+    For instance:
+
+        plt.figure()
+        plotart.plot_errorbars2(xx, yy, e_yy)
+        plt.close()
+
+    Mandatory arguments:
+        xx: the x data.
+        yy: the y data.
+        e_yy: the y data errors.
+
+    Optional arguments:
+        xlim: x-limits in the plot.
+        ylim: y-limits in the plot.
+        color: color of the datapoints.
+        fmt: type of symbol to plot for the datapoints.
+        ms: size of the symbols.
+        elinewidth: width of the lines of the error bars.
+        capsize: size of the ending lines of the error bars.
+        fs: font size for the axis labels. Title is "fs+2".
+        savefig: save the created plot?
+        dir_save_output: directory to save the plot. The path to the directory
+            should end with the "/" symbol.
+        resolution_dpi: resolution of the plot file to be created.
+    """
+
+    # plt.figure()
+    plt.errorbar(xx, yy, yerr = e_yy, xerr = e_xx,
                 fmt=fmt, color=color, ms=ms, alpha=alpha,
                 elinewidth=elinewidth, capsize=capsize)
 
