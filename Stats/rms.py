@@ -1,6 +1,7 @@
 # Functions to compute rms,  weighted RMS, and their uncertainty.
-# This is my main 'rms.py' function.
-
+#
+# This is my MAIN 'rms.py' function.
+#
 #--------------------------------------------------------60
 code_created_by = 'Arturo_Avelino'
 # On date: 2018.12.10 (yyyy.mm.dd)
@@ -8,7 +9,9 @@ code_name = 'rms.py'
 version_code = '0.1.3'
 last_update = '2019.04.17'
 #--------------------------------------------------------60
+
 import numpy as np
+
 #-------------------------------------------------------
 
 def rms(x_np):
