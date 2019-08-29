@@ -9,8 +9,8 @@
 code_created_by = 'Arturo_Avelino'
 # On date: 2019.01.10 (yyyy.mm.dd)
 code_name = 'plotart.py'
-code_version = '0.1.4'
-code_last_update = '2019.04.23'
+code_version = '0.1.5'
+code_last_update = '2019.08.07'
 
 #--------------------------------------------------------60
 
@@ -18,6 +18,75 @@ from matplotlib import pyplot as plt
 import numpy as np
 
 ##############################################################################80
+
+#       SIMPLE X-Y PLOT
+
+def plot_xy(xx, yy,
+                xlim=[], ylim=[],
+                color='red', lw=1, alpha=1,
+                xlabel='x axis', ylabel='y axis',
+                title = 'x-y data', fs=12,
+                savefig = False,
+                namesavefig = 'plot_xy_data_.png',
+                resolution_dpi = 100,
+                dir_save_output = '', **args):
+    """
+    Function to create a generic x-y plot.
+
+    NOTE: The created plot you need to open [i.e., plt.figure()] and close [i.e.,
+    plt.close()] this function. By not including the commands plt.figure() and
+    plt.close() helps to use this function inside of a more complex creation of
+    plots. So to create new plot with these functions, the first and last line should
+    be plt.figure() and plt.close() respectively.
+
+    Example of use:
+
+        plt.figure()
+        plotart.plot_xy(xx, yy)
+        plt.close()
+
+    Mandatory arguments:
+        xx: the x data.
+        yy: the y data.
+
+    Optional arguments:
+        xlim: x-limits in the plot.
+        ylim: y-limits in the plot.
+        color: color of the datapoints.
+        fmt: type of symbol to plot for the datapoints.
+        ms: size of the symbols.
+        fs: font size for the axis labels. Title is "fs+2".
+        savefig: save the created plot?
+        dir_save_output: directory to save the plot. The path to the directory
+            should end with the "/" symbol.
+        resolution_dpi: resolution of the plot file to be created.
+        **args: Any additional arguments passed to plt.plot().
+    """
+
+    # plt.figure()
+    plt.plot(xx, yy,
+                color=color, alpha=alpha, **args)
+
+    plt.grid(True, ls='--', alpha=0.3)
+
+    # x,y axes limits if defined by user:
+    if len(xlim) > 0: plt.xlim(xlim[0], xlim[1])
+    if len(ylim) > 0: plt.ylim(ylim[0], ylim[1])
+
+    plt.xlabel(xlabel, fontsize=fs)
+    plt.ylabel(ylabel, fontsize=fs)
+    plt.title(title, fontsize=(fs+2))
+
+    # plt.legend(loc='upper left')
+
+    if savefig:
+        plt.savefig(dir_save_output+namesavefig, dpi=resolution_dpi)
+
+    # plt.close()
+    # return plt.close()
+    return '# Simple x-y plot created.'
+
+#-----------------------------------------------------------------------------80
 
 #       ERROR BAR PLOT
 
@@ -29,7 +98,7 @@ def plot_errorbars(xx, yy, e_yy,
                 savefig = False,
                 namesavefig = 'plot_data_errorbars_.png',
                 resolution_dpi = 100,
-                dir_save_output = ''):
+                dir_save_output = '', **args):
     """
     Function to create a generic errorbar plot.
 
@@ -67,7 +136,7 @@ def plot_errorbars(xx, yy, e_yy,
     # plt.figure()
     plt.errorbar(xx, yy, yerr = e_yy,
                 fmt=fmt, color=color, ms=ms, alpha=alpha,
-                elinewidth=elinewidth, capsize=capsize)
+                elinewidth=elinewidth, capsize=capsize,  **args)
 
     plt.grid(True, ls='--', alpha=0.3)
 
@@ -100,7 +169,7 @@ def plot_errorbarsxy(xx, yy, e_yy, e_xx,
                 savefig = False,
                 namesavefig = 'plot_data_errorbars_.png',
                 resolution_dpi = 100,
-                dir_save_output = ''):
+                dir_save_output = '', **args):
     """
     Function to create a generic errorbar plot.
 
@@ -138,7 +207,7 @@ def plot_errorbarsxy(xx, yy, e_yy, e_xx,
     # plt.figure()
     plt.errorbar(xx, yy, yerr = e_yy, xerr = e_xx,
                 fmt=fmt, color=color, ms=ms, alpha=alpha,
-                elinewidth=elinewidth, capsize=capsize)
+                elinewidth=elinewidth, capsize=capsize,  **args)
 
     plt.grid(True, ls='--', alpha=0.3)
 
@@ -175,7 +244,7 @@ def plot_errorbars2(x1, y1, e_y1, x2, y2, e_y2,
                 savefig = False,
                 namesavefig = 'plot_data_errorbars_.png',
                 resolution_dpi = 100,
-                dir_save_output = ''):
+                dir_save_output = '',  **args):
     """
     Function to create a generic errorbar plot.
 
@@ -209,12 +278,12 @@ def plot_errorbars2(x1, y1, e_y1, x2, y2, e_y2,
     plt.errorbar(x1, y1, yerr = e_y1,
                 fmt=fmt, color=color1, ms=ms,
                 elinewidth=elinewidth, capsize=capsize, alpha=alpha1,
-                label=legend1)
+                label=legend1, **args)
 
     plt.errorbar(x2, y2, yerr = e_y2,
                 fmt=fmt, color=color2, ms=ms,
                 elinewidth=elinewidth, capsize=capsize, alpha=alpha2,
-                label=legend2)
+                label=legend2, **args)
 
     plt.grid(True, ls='--', alpha=0.3)
 
@@ -247,7 +316,7 @@ def plot_band(xx, yy, e_yy,
             savefig = False,
             namesavefig = 'plot_band_.png',
             resolution_dpi = 100,
-            dir_save_output = ''):
+            dir_save_output = '', **args):
     """
     Function to create a filled band plot.
 
@@ -280,7 +349,7 @@ def plot_band(xx, yy, e_yy,
     plt.fill(np.concatenate([xx1, xx1[::-1]]),
             np.concatenate([yy - 1. * e_yy,
                            (yy + 1. * e_yy)[::-1]]),
-            alpha=alpha, fc=color, ec='None', label='band')
+            alpha=alpha, fc=color, ec='None', label='band', **args)
 
     plt.grid(True, ls='--', alpha=0.3)
 
