@@ -5,8 +5,8 @@
 code_created_by = 'Arturo_Avelino'
 # On date: '2019.06.17' (yyyy.mm.dd)
 code_name = 'mysnpyfunc.py'
-code_version = '0.1.4'
-last_update = '2019.08.14'
+code_version = '0.1.7'
+last_update = '2019.10.24'
 
 #--------------------------------------------------------60
 
@@ -20,9 +20,9 @@ import datetime # Get the current date and time
 def snpyfit(sn_filename, bands_to_fit=[], obs_rest_bands=[],
             apply_kcorr=True, mangled_kcorr=True, apply_stretch=True,
             Ho_value=72.0, dir_save_output='', num_char_trim=-11,
-            debug=False, model='EBV_model', **args):
+            debug=False, model='EBV_model', dpi_filters=60, **args):
     """
-    Function to fit the light-curve data of a single supernova, create and
+    Function to fit the light-curve data of a SINGLE supernova, create and
     save the fit plot, and summary of the results.
 
     bands_to_fit (list): specific observer-frame bands to fit.
@@ -31,12 +31,15 @@ def snpyfit(sn_filename, bands_to_fit=[], obs_rest_bands=[],
         to fit using specific restframe bands defined in rest_bands.
         The first and second filters in the sublists are the
         observer and rest frames bands respectively.
+        For example: obs_rest_bands = [[f125w, Y], [f160w, J]]
 
     num_char_trim (int): number of characters to trim at the end of the file
         name to save the output files
 
     model (str): specify the SNooPy model to use to fit the data.
         Options: ('EBV_model', 'EBV_model2', 'max_model')
+
+    dpi_filters (int): dpi resolution of the filter's plot.
 
     **args: Any additional arguments for s.fit(), for instance, Tmax, bands
 
@@ -75,6 +78,8 @@ def snpyfit(sn_filename, bands_to_fit=[], obs_rest_bands=[],
         for band in s.data.keys():
             if band in bands_to_fit: BandsToFit += [band]
 
+        if debug: print('#- List with the specific band names to fit: created.')
+
         # FIT
         s.fit(bands=BandsToFit, mangle=mangled_kcorr,
           dokcorr=apply_kcorr, k_stretch=apply_stretch,
@@ -89,7 +94,7 @@ def snpyfit(sn_filename, bands_to_fit=[], obs_rest_bands=[],
         BandsToFit = s.data.keys()
 
 
-    if debug: print('#- Fit: done.')
+    if debug: print('#- %s: FITTED.'%sn_filename)
 
     #-------------------------------------
     #  Saving the snpy data
@@ -161,7 +166,8 @@ def snpyfit(sn_filename, bands_to_fit=[], obs_rest_bands=[],
     #-------------------------------------
     # Plot filters
 
-    s.plot_filters(fill=True, outfile=dir_save_output+snname_save+'_Filters.png')
+    s.plot_filters(fill=True, outfile=dir_save_output+snname_save+'_Filters.png',
+                    dpi=dpi_filters)
     plt.close()
     if debug: print("#- Plot filters: done and saved.")
 
@@ -187,6 +193,7 @@ def snpyfit(sn_filename, bands_to_fit=[], obs_rest_bands=[],
     textfile_1 = open(dir_save_output+snname_save+'_SummaryFit_.txt','a')
     textfile_1.write(text_line)
     textfile_1.write('# SNooPy model used to fit: %s\n'%model)
+    textfile_1.write('# Specified bands to fit: %s\n'%bands_to_fit)
     textfile_1.write("# Fitted bands: %s\n"%BandsToFit)
     textfile_1.write('# Specified match among observed to restframe bands: \
 %s\n'%obs_rest_bands)
@@ -203,7 +210,7 @@ def snpyfit(sn_filename, bands_to_fit=[], obs_rest_bands=[],
 
     if debug: print('#- Summary text file: done and saved.')
 
-    #-------------------------------------
+    #---------------------------------------------------------------------------
 
     print('#- %s fitted with no issues.\n'%snname_save)
 
