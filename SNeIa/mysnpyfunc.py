@@ -6,7 +6,7 @@ code_created_by = 'Arturo_Avelino'
 # On date: '2019.06.17' (yyyy.mm.dd)
 code_name = 'mysnpyfunc.py'
 code_version = '0.1.9'
-last_update = '2019.10.30'
+last_update = '2019.11.01'
 
 #--------------------------------------------------------60
 
@@ -35,7 +35,9 @@ def snpyfit(sn_filename, bands_to_fit=[], obs_rest_bands=[],
         to fit using specific restframe bands defined in rest_bands.
         The first and second filters in the sublists are the
         observer and rest frames bands respectively.
-        For example: obs_rest_bands = [[f125w, Y], [f160w, J]]
+        For example:
+
+                    obs_rest_bands = [[f125w, Y], [f160w, J]]
 
     num_char_trim (int): number of characters to trim at the end of the file
         name to save the output files
@@ -241,7 +243,7 @@ def snpyfit(sn_filename, bands_to_fit=[], obs_rest_bands=[],
         if debug:
             print("#- Create initial mag, err_mag, kcorr, dictionaries: OK")
 
-        #----- MAIN LOOP -------
+        #----- Main loop to estimate k-corr uncertainties ------->>
         # This part may take few minutes to run for each SN
 
         print("#- Simulating %s times the photometry and computing their \
@@ -281,7 +283,7 @@ k-corrections."%(NumSim))
                 mag_dict[band6+'_%s'%(j2+1)] = list(s.data[band6].mag)
 
             # Print the loop step number:
-            print(", %s"%j2, end='') #
+            if debug: print(", %s"%j2, end='') #
         # <<--- end main loop for k-corr uncertainties
 
         if debug:
@@ -375,7 +377,7 @@ to JSON files.")
                   min(mag_dict[BandsToFit[0]+'_0']) - 2.5 )
 
         plt.title('%s. Simulated photometry'%s.name, fontsize=10)
-        plt.xlabel('Epoch (observer frame)')
+        plt.xlabel('Epoch (observer-frame days)')
         plt.ylabel('magnitude')
         plt.tight_layout()
 
@@ -422,7 +424,7 @@ to JSON files.")
 
         plt.title('%s. K-corrs from simulated photometry'%s.name,
                 fontsize=10)
-        plt.xlabel('Epoch (observer frame)')
+        plt.xlabel('Epoch (observer-frame days)')
         plt.ylabel('magnitude')
         plt.tight_layout()
 
