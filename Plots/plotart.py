@@ -9,8 +9,8 @@
 code_created_by = 'Arturo_Avelino'
 # On date: 2019.01.10 (yyyy.mm.dd)
 code_name = 'plotart.py'
-code_version = '0.1.5'
-code_last_update = '2019.08.07'
+code_version = '0.1.6'
+code_last_update = '2019.10.25'
 
 #--------------------------------------------------------60
 
@@ -61,6 +61,10 @@ def plot_xy(xx, yy,
             should end with the "/" symbol.
         resolution_dpi: resolution of the plot file to be created.
         **args: Any additional arguments passed to plt.plot().
+
+    To plot the data as points and without the connecting line then use the
+    argument:
+        ls='', marker = '.' (or marker = 'o'), markersize = 6.
     """
 
     # plt.figure()
