@@ -37,7 +37,7 @@ def snpyfit(sn_filename, bands_to_fit=[], obs_rest_bands=[],
         observer and rest frames bands respectively.
         For example:
 
-                    obs_rest_bands = [[f125w, Y], [f160w, J]]
+            obs_rest_bands = [[f125w, Y], [f160w, J]]
 
     num_char_trim (int): number of characters to trim at the end of the file
         name to save the output files
