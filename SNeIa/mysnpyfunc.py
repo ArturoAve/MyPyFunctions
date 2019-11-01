@@ -259,10 +259,6 @@ k-corrections."%(NumSim))
                     muInt = mag_dict[band5+'_0'][i2]
                     sigmaInt = errmag_fix_dict[band5][i2]
 
-                    # Defining a single datum from the original data:
-                    # tmp, old. muInt = s.data[band5].mag[i2]
-                    # tmp, old. sigmaInt = s.data[band5].e_mag[i2]
-
                     # Generate Gaussian random photometry and redefine it
                     # as the "actual" photometry.
                     mag_sim_int = random.gauss(muInt, sigmaInt)
@@ -277,22 +273,6 @@ k-corrections."%(NumSim))
             s.fit(bands=BandsToFit, mangle=mangled_kcorr,
                   dokcorr=apply_kcorr, k_stretch=apply_stretch,
                   reset_kcorrs=True, **args)
-
-            # In k-corr UNCERTAINTIES computation, for dates with no data.
-            # Use interpolation? "False" is preferred option.
-            # interpol_kcorrError = False
-            # LCModel_kcorrError = False # Use model? "False" is preferred option.
-
-            # k-correct the new simulated photometry
-            # s.kcorr()
-            # s.kcorr(bands=BandsToFit)
-            # s.kcorr(bands=BandsToFit, interp=interpol_kcorrError)
-
-            # Find out why the following function produces an error.
-            # s.kcorr(bands=BandsToFit)#, mangle=mangled_kcorr #,
-                    # interp=interpol_kcorrError, use_model=LCModel_kcorrError,
-                    # use_stretch=apply_stretch
-                    # )
 
             # Save the new kcorr values and simulated magnitudes to the
             # "kcorr_dict" and "mag_dict" dicts.
